@@ -1,7 +1,7 @@
 {
-  "name": "@nuxtjs/vercel-builder",
+  "name": "@altinget/vercel-builder",
   "version": "0.22.1",
-  "repository": "nuxt/vercel-builder",
+  "repository": "Altinget/vercel-builder",
   "license": "MIT",
   "exports": {
     ".": "./lib/index.js",

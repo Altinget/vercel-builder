@@ -16,6 +16,7 @@ interface BuilderOutput {
   watch?: string[];
   output: Record<string, Lambda | File | FileFsRef>;
   routes: Route[];
+  images: any;
 }
 
 interface NuxtBuilderConfig {
@@ -26,6 +27,7 @@ interface NuxtBuilderConfig {
   includeFiles?: string[] | string
   serverFiles?: string[]
   internalServer?: boolean
+  images: any
 }
 
 export async function build (opts: BuildOptions & { config: NuxtBuilderConfig }): Promise<BuilderOutput> {
@@ -298,6 +300,7 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
       ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers: { 'Cache-Control': 'max-age=31557600' } })),
       { handle: 'filesystem' },
       { src: '/(.*)', dest: '/index' }
-    ]
+    ],
+    images: config.images
   }
 }
