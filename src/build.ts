@@ -294,8 +294,9 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
     { src: `/${publicPath}.+`, headers: headers },
     ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers: headers })),
     { handle: 'filesystem' },
-    { src: '/(.*)', dest: '/index', headers: headers }
-  ]
+    { src: '/(.*)', dest: '/index', headers: headers },
+    { src: '/', headers: headers }
+  ] 
   console.error('headers', headers)
   console.error('routes', routes)
 
