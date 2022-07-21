@@ -290,6 +290,14 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
   endStep()
 
   const headers = config.headers ?? { 'Cache-Control': 'max-age=31557600' }
+  const routes = [
+    { src: `/${publicPath}.+`, headers: headers },
+    ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers: headers })),
+    { handle: 'filesystem' },
+    { src: '/(.*)', dest: '/index', headers: headers }
+  ]
+  console.error('headers', headers)
+  console.error('routes', routes)
 
   return {
     output: {
@@ -298,12 +306,7 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
       ...staticFiles,
       ...generatedPagesFiles
     },
-    routes: [
-      { src: `/${publicPath}.+`, headers },
-      ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers })),
-      { handle: 'filesystem' },
-      { src: '/(.*)', dest: '/index' }
-    ],
+    routes: routes,
     images: config.images
   }
 }
