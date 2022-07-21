@@ -27,7 +27,8 @@ interface NuxtBuilderConfig {
   includeFiles?: string[] | string
   serverFiles?: string[]
   internalServer?: boolean
-  images: any
+  images: any,
+  headers?: any
 }
 
 export async function build (opts: BuildOptions & { config: NuxtBuilderConfig }): Promise<BuilderOutput> {
@@ -288,6 +289,8 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
 
   endStep()
 
+  const headers = config.headers ?? { 'Cache-Control': 'max-age=31557600' }
+
   return {
     output: {
       ...lambdas,
@@ -296,8 +299,8 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
       ...generatedPagesFiles
     },
     routes: [
-      { src: `/${publicPath}.+`, headers: { 'Cache-Control': 'max-age=31557600' } },
-      ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers: { 'Cache-Control': 'max-age=31557600' } })),
+      { src: `/${publicPath}.+`, headers },
+      ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers })),
       { handle: 'filesystem' },
       { src: '/(.*)', dest: '/index' }
     ],
