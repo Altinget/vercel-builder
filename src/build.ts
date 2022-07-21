@@ -291,7 +291,7 @@ export async function build (opts: BuildOptions & { config: NuxtBuilderConfig })
 
   const headers = config.headers ?? { 'Cache-Control': 'max-age=31557600' }
   const routes = [
-    { src: `/${publicPath}.+`, headers: headers },
+    { src: `/${publicPath}.*`, headers: headers },
     ...Object.keys(staticFiles).map(file => ({ src: `/${file}`, headers: headers })),
     { handle: 'filesystem' },
     { src: '/(.*)', dest: '/index', headers: headers },
