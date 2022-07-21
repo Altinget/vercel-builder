@@ -1,6 +1,6 @@
 {
   "name": "@altinget/vercel-builder",
-  "version": "0.22.7",
+  "version": "0.22.8",
   "repository": "Altinget/vercel-builder",
   "license": "MIT",
   "exports": {
